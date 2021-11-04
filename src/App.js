@@ -8,8 +8,8 @@ import Pagination from "./components/pagination";
 
 const news = [
   {
-    url: "www.google.com",
-    urlToImage: "/1.jpg",
+    url: "https://www.google.com",
+    urlToImage: "1.jpg",
     title: "Bangladesh 1",
     content: "Bangladesh is the most import categories in the world to .",
 
@@ -19,8 +19,8 @@ const news = [
     },
   },
   {
-    url: "www.google.com",
-    urlToImage: "/2.jpg",
+    url: "https://www.google.com",
+    urlToImage: "2.jpg",
     title: "Bangladesh 2",
     content: "Bangladesh is the most import categories in the world to 22 .",
 
