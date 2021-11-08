@@ -34,13 +34,15 @@ const news = [
 
 class App extends React.Component {
   componentDidMount() {
-    async function hi() {
-      const { data } = await axios.get();
-
-      console.log(data);
-
-      hi().then((data) => console.log(data));
-    }
+    // async function hi() {
+    //   try {
+    //     const { data } = await axios.get("/?category=technoloty");
+    //     console.log(data);
+    //   } catch (e) {
+    //     console.log(e, "hi error");
+    //   }
+    // }
+    // hi();
   }
   render() {
     return (
