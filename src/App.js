@@ -5,6 +5,7 @@ import Loading from "./components/loading";
 import TotalResult from "./components/totalPageResult";
 import NewsList from "./components/newsList";
 import Pagination from "./components/pagination";
+import axios from "./components/axios/axios";
 
 const news = [
   {
@@ -32,6 +33,15 @@ const news = [
 ];
 
 class App extends React.Component {
+  componentDidMount() {
+    async function hi() {
+      const { data } = await axios.get();
+
+      console.log(data);
+
+      hi().then((data) => console.log(data));
+    }
+  }
   render() {
     return (
       <div className="container">
