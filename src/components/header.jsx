@@ -19,11 +19,17 @@ class Header extends React.Component {
             Object.keys(newsCategroy).map((item) => {
               if (category === newsCategroy[item]) {
                 return (
-                  <button className="btn btn-warning">{`#${newsCategroy[item]}`}</button>
+                  <button
+                    key={Math.random()}
+                    className="btn btn-warning"
+                  >{`#${newsCategroy[item]}`}</button>
                 );
               }
               return (
-                <button className="btn btn-outline">{`#${newsCategroy[item]}`}</button>
+                <button
+                  key={Math.random()}
+                  className="btn btn-outline"
+                >{`#${newsCategroy[item]}`}</button>
               );
             })}
         </div>

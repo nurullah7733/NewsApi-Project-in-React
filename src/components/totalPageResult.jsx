@@ -1,9 +1,9 @@
-function TotalPageResult() {
+function TotalPageResult({ totalPage, totalResult, currentPage }) {
   return (
     <div className="d-flex">
-      <p className="text-black-50">About 0 Result Found</p>
+      <p className="text-black-50">About {totalResult} Result Found</p>
       <p className="text-black-50 " style={{ marginLeft: "auto" }}>
-        Page 0 of 0
+        Page {currentPage} of {totalPage}
       </p>
     </div>
   );

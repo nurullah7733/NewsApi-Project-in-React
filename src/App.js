@@ -1,59 +1,49 @@
 import React from "react";
 import Header from "./components/header";
-import { newsCategroy } from "./components/news/news";
+import News, { newsCategroy } from "./components/news/news";
 import Loading from "./components/loading";
-import TotalResult from "./components/totalPageResult";
+import TotalPageResult from "./components/totalPageResult";
 import NewsList from "./components/newsList";
 import Pagination from "./components/pagination";
-import axios from "./components/axios/axios";
 
-const news = [
-  {
-    url: "https://www.google.com",
-    urlToImage: "1.jpg",
-    title: "Bangladesh 1",
-    content: "Bangladesh is the most import categories in the world to .",
-
-    publishedAt: "Published Data and Time",
-    source: {
-      name: "BBC",
-    },
-  },
-  {
-    url: "https://www.google.com",
-    urlToImage: "2.jpg",
-    title: "Bangladesh 2",
-    content: "Bangladesh is the most import categories in the world to 22 .",
-
-    publishedAt: "Published Data and Time",
-    source: {
-      name: "CNN",
-    },
-  },
-];
+const news = new News(newsCategroy.technology);
 
 class App extends React.Component {
+  state = {
+    data: [],
+    isLoading: true,
+  };
   componentDidMount() {
-    // async function hi() {
-    //   try {
-    //     const { data } = await axios.get("/?category=technoloty");
-    //     console.log(data);
-    //   } catch (e) {
-    //     console.log(e, "hi error");
-    //   }
-    // }
-    // hi();
+    news
+      .getNews()
+      .then((data) => this.setState({ data, isLoading: false }))
+      .catch((e) => {
+        this.setState({ isLoading: false });
+        console.log(e, "Error from app.js");
+      });
   }
+
   render() {
+    console.log(this.state.data);
     return (
       <div className="container">
         <div className="row">
           <div className="col-md-6 offset-md-3">
             <Header category={newsCategroy.technology} />
-            <TotalResult />
-            <Loading />
-            <NewsList allNews={news} />
-            <Pagination />
+            <TotalPageResult
+              totalResult={this.state.data.totalResult}
+              totalPage={this.state.data.totalPage}
+              currentPage={this.state.data.currentPage}
+            />
+
+            {this.state.isLoading ? (
+              <Loading />
+            ) : (
+              <div>
+                <NewsList allNews={this.state.data.article} />
+                <Pagination />
+              </div>
+            )}
           </div>
         </div>
       </div>

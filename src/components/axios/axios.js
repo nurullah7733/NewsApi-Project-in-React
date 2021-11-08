@@ -6,6 +6,6 @@ const instance = axios.create({
 });
 
 // Alter defaults after instance has been created
-instance.defaults.headers.common["X-NEWS-API"] = process.env.REACT_APP_NEWS_API;
+instance.defaults.headers.common["x-api-key"] = process.env.REACT_APP_NEWS_API;
 
 export default instance;
