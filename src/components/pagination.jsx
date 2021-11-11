@@ -6,12 +6,39 @@ class Pagination extends React.Component {
   };
 
   render() {
+    const {
+      nextPage,
+      prevPage,
+      isNext,
+      isPrev,
+      totalPage,
+      currentPage,
+      handleChange,
+      goToPage,
+    } = this.props;
+    console.log("isNext:", isNext, "prev:", isPrev);
     return (
       <div className="d-flex my-5 align-items-center">
-        <button className="btn btn-warning">Previous</button>
+        <button
+          className="btn btn-warning"
+          onClick={prevPage}
+          disabled={!isPrev}
+        >
+          Previous
+        </button>
         <div className="flex-grow-1 text-center">
           {this.state.isEditable ? (
-            <input type="number" value="1" />
+            <input
+              type="number"
+              value={currentPage}
+              onChange={(e) => handleChange(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  goToPage();
+                  this.setState({ isEditable: false });
+                }
+              }}
+            />
           ) : (
             <p
               style={{ userSelect: "none", lineHeight: "1.1" }}
@@ -22,13 +49,19 @@ class Pagination extends React.Component {
                 });
               }}
             >
-              {0} to {0} <br />
+              {currentPage} to {totalPage} <br />
               <small>Double Tap to Edit</small>
             </p>
           )}
         </div>
 
-        <button className="btn btn-warning ml-auto">Next</button>
+        <button
+          onClick={() => nextPage()}
+          disabled={!isNext}
+          className="btn btn-warning ml-auto"
+        >
+          Next
+        </button>
       </div>
     );
   }

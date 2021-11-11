@@ -2,8 +2,15 @@ import React from "react";
 import { newsCategroy } from "./news/news";
 
 class Header extends React.Component {
+  state = {
+    searchValue: "",
+  };
+
+  handleChangeValue = (e) => {
+    this.setState({ searchValue: e.target.value });
+  };
   render() {
-    const { category } = this.props;
+    const { category, handleSearch } = this.props;
     return (
       <div className="my-4">
         <h1 className="mb-4" style={{ fontWeight: "300" }}>
@@ -13,6 +20,12 @@ class Header extends React.Component {
           type="search"
           className="form-control"
           placeholder="Type Anything & Press Enter to Search"
+          onChange={this.handleChangeValue}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              handleSearch(this.state.searchValue);
+            }
+          }}
         />
         <div className="my-4">
           {newsCategroy &&

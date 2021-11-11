@@ -25,13 +25,16 @@ export default class News {
   async getNews() {
     try {
       const { data } = await axios.get(this._getUrl());
-      const totalPage = Math.ceil(data.totalResults / this._pagesize);
+      this._totalPage = Math.ceil(data.totalResults / this._pagesize);
 
       return {
         article: data.articles,
         totalResult: data.totalResults,
         currentPage: this._currentPage,
-        totalPage: totalPage,
+        totalPage: this._totalPage,
+        search: this._searchTerm,
+        isNext: this._isNext(),
+        isPrev: this._isPrev(),
       };
     } catch (e) {
       console.log(e, "Problem comes from news.js");
@@ -49,20 +52,41 @@ export default class News {
     return url;
   }
 
-  next() {}
+  next() {
+    if (this._isNext()) {
+      this._currentPage++;
+      return this.getNews();
+    }
+    return false;
+  }
 
-  prev() {}
+  prev() {
+    if (this._isPrev()) {
+      this._currentPage--;
+      return this.getNews();
+    }
+    return false;
+  }
 
-  search() {}
+  search(searchValue) {
+    this._searchTerm = searchValue;
+    return this.getNews();
+  }
 
   changeCategory() {}
 
-  setCurrentPage() {}
+  setCurrentPage(inputPageNumber) {
+    if (inputPageNumber < 1 && inputPageNumber > this._totalPage) {
+      return "Your are Provided Worng Page Number.";
+    }
+    this._currentPage = inputPageNumber;
+    return this.getNews();
+  }
 
   _isNext() {
-    return this.currentPage < this.totalPage;
+    return this._currentPage < this._totalPage;
   }
   _isPrev() {
-    return this.currentPage > 1;
+    return this._currentPage > 1;
   }
 }
