@@ -16,7 +16,6 @@ class Pagination extends React.Component {
       handleChange,
       goToPage,
     } = this.props;
-    console.log("isNext:", isNext, "prev:", isPrev);
     return (
       <div className="d-flex my-5 align-items-center">
         <button

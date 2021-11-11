@@ -10,7 +10,7 @@ class Header extends React.Component {
     this.setState({ searchValue: e.target.value });
   };
   render() {
-    const { category, handleSearch } = this.props;
+    const { category, handleSearch, handleChangeCategory } = this.props;
     return (
       <div className="my-4">
         <h1 className="mb-4" style={{ fontWeight: "300" }}>
@@ -42,6 +42,9 @@ class Header extends React.Component {
                 <button
                   key={Math.random()}
                   className="btn btn-outline"
+                  onClick={() => {
+                    handleChangeCategory(newsCategroy[item]);
+                  }}
                 >{`#${newsCategroy[item]}`}</button>
               );
             })}

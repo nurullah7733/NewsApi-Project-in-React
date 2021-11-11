@@ -33,6 +33,7 @@ export default class News {
         currentPage: this._currentPage,
         totalPage: this._totalPage,
         search: this._searchTerm,
+        category: this._category,
         isNext: this._isNext(),
         isPrev: this._isPrev(),
       };
@@ -48,7 +49,6 @@ export default class News {
     if (this._currentPage) url += `&page=${this._currentPage}`;
     if (this._pagesize) url += `&pageSize=${this._pagesize}`;
     if (this._searchTerm) url += `&q=${this._searchTerm}`;
-    console.log(url);
     return url;
   }
 
@@ -73,7 +73,11 @@ export default class News {
     return this.getNews();
   }
 
-  changeCategory() {}
+  changeCategory(inputCategory) {
+    this._category = inputCategory;
+    this._currentPage = 1;
+    return this.getNews();
+  }
 
   setCurrentPage(inputPageNumber) {
     if (inputPageNumber < 1 && inputPageNumber > this._totalPage) {

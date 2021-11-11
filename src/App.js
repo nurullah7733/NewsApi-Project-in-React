@@ -30,7 +30,24 @@ class App extends React.Component {
     news
       .search(value)
       .then((data) => this.setState({ data, isLoading: false }))
-      .catch();
+      .catch((e) => {
+        this.setState({ isLoading: false });
+        console.log(e, "searh Error from app.js");
+      });
+  };
+
+  // change category fn implementation
+
+  handleChangeCategory = (categoryValue) => {
+    this.setState({ isLoading: true });
+
+    news
+      .changeCategory(categoryValue)
+      .then((data) => this.setState({ data, isLoading: false }))
+      .catch((e) => {
+        this.setState({ isLoading: false });
+        console.log(e, "category Error from app.js");
+      });
   };
 
   // Next pagee function Implement.
@@ -89,14 +106,14 @@ class App extends React.Component {
   render() {
     const { totalResult, totalPage, currentPage, article, isNext, isPrev } =
       this.state.data;
-    console.log(this.state.data);
     return (
       <div className="container">
         <div className="row">
           <div className="col-md-6 offset-md-3">
             <Header
-              category={newsCategroy.technology}
+              category={this.state.data.category}
               handleSearch={this.handleSearch}
+              handleChangeCategory={this.handleChangeCategory}
             />
             <TotalPageResult
               totalResult={totalResult}
