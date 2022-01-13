@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../axios/axios";
 
 export const newsCategroy = {
   technology: "technology",
@@ -24,10 +24,7 @@ export default class News {
 
   async getNews() {
     try {
-//       const { data } = await axios.get(this._getUrl());
-       const { data } = await axios.get(
-        `https://newsapi.org/v2/top-headlines?apiKey=9daa86ed54de49a89d185777f0a82732&${this._getUrl()}`
-      );
+      const { data } = await axios.get(this._getUrl());
       this._totalPage = Math.ceil(data.totalResults / this._pagesize);
 
       return {
